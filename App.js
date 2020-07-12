@@ -79,7 +79,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Suspicious Transactions</Text>
+      <Text style={styles.header}>Suspicious Transactions</Text>
       <FlatList
         style={styles.flatlist}
         keyExtractor={transaction => transaction.id}
@@ -88,22 +88,24 @@ export default function App() {
           if (item.resolved === false) {
             return (
               <View style={styles.list}>
-                <Text>Transaction ID: {item.id}</Text>
-                <Text>From user: {item.sender}</Text>
-                <Text>To user: {item.receiver}</Text>
-                <Text>Amount: {item.amount}</Text>
-                <TouchableOpacity
-                  onPress={() => resolveTransaction(item.id, "blocked")}
-                  style={styles.button}
-                >
-                  <Text>Block</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => resolveTransaction(item.id, "allowed")}
-                  style={styles.button}
-                >
-                  <Text>Allow</Text>
-                </TouchableOpacity>
+                <Text style={styles.listText}>Transaction ID: {item.id}</Text>
+                <Text style={styles.listText}>From user: {item.sender}</Text>
+                <Text style={styles.listText}>To user: {item.receiver}</Text>
+                <Text style={styles.listText}>Amount: {item.amount}</Text>
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity
+                    onPress={() => resolveTransaction(item.id, "blocked")}
+                    style={styles.btn}
+                  >
+                    <Text>Block</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => resolveTransaction(item.id, "allowed")}
+                    style={styles.btn}
+                  >
+                    <Text>Allow</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             );
           }
@@ -120,10 +122,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 30
   },
-  list: {
-    marginVertical: 20
-  },
-  button: {
+  header: {
+    fontSize: 25,
     margin: 10
+  },
+  list: {
+    width: 300,
+    marginVertical: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: "#ddd",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7
+  },
+  listText: {
+    fontSize: 17
+  },
+  btnContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end"
+  },
+  btn: {
+    margin: 10,
+    padding: 5,
+    borderWidth: 2,
+    borderColor: "lightgrey",
+    borderRadius: 6,
+    textAlign: "center"
   }
 });
